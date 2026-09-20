@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Password Strength Analyzer</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <main class="container">
+
+        <!-- HEADER -->
+        <section class="hero">
+
+            <div class="badge">
+                CYBERSECURITY TOOL
+            </div>
+
+            <h1>Password Strength Analyzer</h1>
+
+            <p>
+                Analyze your password strength and get practical
+                security recommendations.
+            </p>
+
+        </section>
+
+
+        <!-- ANALYZER CARD -->
+        <section class="card">
+
+            <form id="passwordForm">
+
+                <label for="password">
+                    Enter Password
+                </label>
+
+                <div class="password-wrapper">
+
+                    <input type="password" id="password" placeholder="Enter a password..." autocomplete="off">
+
+                    <button type="button" id="togglePassword" class="toggle-btn">
+                        Show
+                    </button>
+
+                </div>
+
+
+                <button type="submit" class="analyze-btn">
+                    Analyze Password
+                </button>
+
+            </form>
+
+
+            <!-- RESULT -->
+            <div id="result" class="result hidden">
+
+                <div class="score-header">
+
+                    <div>
+                        <span class="small-title">
+                            SECURITY SCORE
+                        </span>
+
+                        <h2 id="score">
+                            0/10
+                        </h2>
+                    </div>
+
+                    <div id="strength">
+                        WEAK
+                    </div>
+
+                </div>
+
+
+                <!-- STRENGTH BAR -->
+
+                <div class="strength-bar">
+
+                    <div id="strengthFill" class="strength-fill"></div>
+
+                </div>
+
+
+                <!-- CHECKS -->
+
+                <div class="section">
+
+                    <h3>Security Checks</h3>
+
+                    <div id="checks" class="checks"></div>
+
+                </div>
+
+
+                <!-- WARNINGS -->
+
+                <div class="section">
+
+                    <h3>Warnings</h3>
+
+                    <ul id="warnings"></ul>
+
+                </div>
+
+
+                <!-- RECOMMENDATIONS -->
+
+                <div class="section">
+
+                    <h3>Recommendations</h3>
+
+                    <ul id="recommendations"></ul>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- PRIVACY MESSAGE -->
+
+        <section class="privacy">
+
+            <strong>Privacy Notice</strong>
+
+            <p>
+                This tool does not store passwords.
+                When running locally, the password is processed
+                by the local application and is not saved.
+            </p>
+
+        </section>
+
+
+        <footer>
+
+            <p>
+                Built with Python, Flask, HTML, CSS and JavaScript
+            </p>
+
+        </footer>
+
+    </main>
+
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+
+</body>
+
+</html>

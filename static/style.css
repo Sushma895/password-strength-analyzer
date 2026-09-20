@@ -1,0 +1,644 @@
+/* ================================
+   PASSWORD STRENGTH ANALYZER
+   Premium Cybersecurity UI
+================================ */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --bg: #070b14;
+    --card: rgba(15, 23, 42, 0.82);
+    --card-light: rgba(30, 41, 59, 0.55);
+    --border: rgba(148, 163, 184, 0.16);
+    --text: #f8fafc;
+    --muted: #94a3b8;
+    --soft: #cbd5e1;
+    --accent: #7c8cff;
+    --accent-soft: rgba(124, 140, 255, 0.15);
+    --success: #34d399;
+    --warning: #fbbf24;
+    --danger: #fb7185;
+}
+
+
+/* ================================
+   BODY
+================================ */
+
+body {
+    min-height: 100vh;
+    font-family: Inter, Arial, sans-serif;
+    color: var(--text);
+
+    background:
+        radial-gradient(circle at 15% 15%,
+            rgba(124, 140, 255, 0.12),
+            transparent 30%),
+        radial-gradient(circle at 85% 80%,
+            rgba(56, 189, 248, 0.08),
+            transparent 30%),
+        var(--bg);
+
+    overflow-x: hidden;
+}
+
+
+/* subtle grid */
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+
+    background-image:
+        linear-gradient(rgba(255, 255, 255, 0.025) 1px,
+            transparent 1px),
+        linear-gradient(90deg,
+            rgba(255, 255, 255, 0.025) 1px,
+            transparent 1px);
+
+    background-size: 45px 45px;
+
+    mask-image: linear-gradient(to bottom,
+            black,
+            transparent 85%);
+
+    pointer-events: none;
+}
+
+
+/* ================================
+   MAIN CONTAINER
+================================ */
+
+.container {
+    position: relative;
+    width: min(900px, 92%);
+    margin: auto;
+    padding: 70px 0 40px;
+}
+
+
+/* ================================
+   HERO
+================================ */
+
+.hero {
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+
+.badge {
+    display: inline-flex;
+    align-items: center;
+
+    padding: 7px 13px;
+
+    border: 1px solid var(--border);
+    border-radius: 999px;
+
+    background: rgba(124, 140, 255, 0.07);
+
+    color: #aeb8ff;
+
+    font-size: 11px;
+    font-weight: 700;
+
+    letter-spacing: 1.6px;
+
+    margin-bottom: 18px;
+
+    box-shadow:
+        0 0 25px rgba(124, 140, 255, 0.08);
+}
+
+
+.hero h1 {
+    font-size: clamp(32px, 5vw, 48px);
+    line-height: 1.1;
+    letter-spacing: -1.5px;
+
+    margin-bottom: 15px;
+}
+
+
+.hero p {
+    max-width: 580px;
+    margin: auto;
+
+    color: var(--muted);
+
+    font-size: 16px;
+    line-height: 1.7;
+}
+
+
+/* ================================
+   MAIN CARD
+================================ */
+
+.card {
+    position: relative;
+
+    padding: 32px;
+
+    border: 1px solid var(--border);
+    border-radius: 24px;
+
+    background: var(--card);
+
+    backdrop-filter: blur(18px);
+
+    box-shadow:
+        0 30px 80px rgba(0, 0, 0, 0.35),
+        inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+
+.card::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 12%;
+    right: 12%;
+
+    height: 1px;
+
+    background: linear-gradient(90deg,
+            transparent,
+            rgba(124, 140, 255, 0.7),
+            transparent);
+}
+
+
+/* ================================
+   FORM
+================================ */
+
+label {
+    display: block;
+
+    margin-bottom: 10px;
+
+    color: var(--soft);
+
+    font-size: 14px;
+    font-weight: 600;
+}
+
+
+.password-wrapper {
+    display: flex;
+    gap: 10px;
+}
+
+
+input {
+    width: 100%;
+
+    padding: 15px 16px;
+
+    border: 1px solid var(--border);
+    border-radius: 13px;
+
+    background: rgba(2, 6, 23, 0.65);
+
+    color: white;
+
+    font-size: 15px;
+
+    outline: none;
+
+    transition:
+        border 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+input::placeholder {
+    color: #64748b;
+}
+
+
+input:focus {
+    border-color: rgba(124, 140, 255, 0.7);
+
+    box-shadow:
+        0 0 0 4px rgba(124, 140, 255, 0.08);
+}
+
+
+/* ================================
+   SHOW / HIDE
+================================ */
+
+.toggle-btn {
+    min-width: 72px;
+
+    padding: 0 15px;
+
+    border: 1px solid var(--border);
+    border-radius: 13px;
+
+    background: rgba(30, 41, 59, 0.65);
+
+    color: var(--soft);
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+
+.toggle-btn:hover {
+    background: rgba(51, 65, 85, 0.8);
+
+    color: white;
+}
+
+
+/* ================================
+   ANALYZE BUTTON
+================================ */
+
+.analyze-btn {
+    width: 100%;
+
+    margin-top: 15px;
+
+    padding: 15px;
+
+    border: 0;
+    border-radius: 13px;
+
+    background: linear-gradient(135deg,
+            #8b96ff,
+            #6475f4);
+
+    color: white;
+
+    font-size: 15px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 10px 30px rgba(100, 117, 244, 0.2);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+.analyze-btn:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 14px 35px rgba(100, 117, 244, 0.3);
+}
+
+
+.analyze-btn:active {
+    transform: translateY(0);
+}
+
+
+/* ================================
+   RESULT
+================================ */
+
+.result {
+    margin-top: 32px;
+
+    animation: resultAppear 0.35s ease;
+}
+
+
+.hidden {
+    display: none;
+}
+
+
+@keyframes resultAppear {
+
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* ================================
+   SCORE HEADER
+================================ */
+
+.score-header {
+    display: flex;
+
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 22px;
+
+    border: 1px solid var(--border);
+    border-radius: 18px;
+
+    background:
+        linear-gradient(135deg,
+            rgba(124, 140, 255, 0.08),
+            rgba(15, 23, 42, 0.5));
+}
+
+
+.small-title {
+    display: block;
+
+    color: #64748b;
+
+    font-size: 10px;
+    font-weight: 700;
+
+    letter-spacing: 1.6px;
+}
+
+
+#score {
+    margin-top: 5px;
+
+    font-size: 40px;
+
+    letter-spacing: -1px;
+}
+
+
+#strength {
+    padding: 9px 13px;
+
+    border: 1px solid var(--border);
+    border-radius: 999px;
+
+    background: rgba(255, 255, 255, 0.04);
+
+    font-size: 12px;
+    font-weight: 800;
+
+    letter-spacing: 0.8px;
+}
+
+
+/* ================================
+   STRENGTH BAR
+================================ */
+
+.strength-bar {
+    height: 9px;
+
+    margin: 15px 2px 30px;
+
+    background: #172033;
+
+    border-radius: 999px;
+
+    overflow: hidden;
+}
+
+
+.strength-fill {
+    width: 0%;
+    height: 100%;
+
+    border-radius: inherit;
+
+    background: linear-gradient(90deg,
+            #fb7185,
+            #fbbf24,
+            #34d399);
+
+    transition:
+        width 0.55s cubic-bezier(.4, 0, .2, 1);
+}
+
+
+/* ================================
+   SECTIONS
+================================ */
+
+.section {
+    margin-top: 28px;
+}
+
+
+.section h3 {
+    margin-bottom: 13px;
+
+    font-size: 15px;
+}
+
+
+/* ================================
+   CHECKS
+================================ */
+
+.checks {
+    display: grid;
+
+    grid-template-columns: repeat(2,
+            minmax(0, 1fr));
+
+    gap: 9px;
+}
+
+
+.check {
+    padding: 12px 14px;
+
+    border: 1px solid var(--border);
+    border-radius: 12px;
+
+    background: rgba(2, 6, 23, 0.35);
+
+    color: var(--soft);
+
+    font-size: 13px;
+
+    transition: 0.2s ease;
+}
+
+
+.check.pass {
+    border-color: rgba(52, 211, 153, 0.2);
+
+    background:
+        rgba(52, 211, 153, 0.045);
+}
+
+
+.check.fail {
+    border-color: rgba(251, 113, 133, 0.2);
+
+    background:
+        rgba(251, 113, 133, 0.045);
+}
+
+
+/* ================================
+   LISTS
+================================ */
+
+ul {
+    padding-left: 0;
+
+    list-style: none;
+}
+
+
+li {
+    position: relative;
+
+    margin-bottom: 9px;
+
+    padding: 11px 13px 11px 35px;
+
+    border: 1px solid var(--border);
+    border-radius: 10px;
+
+    background: rgba(2, 6, 23, 0.3);
+
+    color: var(--soft);
+
+    font-size: 13px;
+
+    line-height: 1.5;
+}
+
+
+li::before {
+    content: "•";
+
+    position: absolute;
+
+    left: 14px;
+
+    color: #818cf8;
+
+    font-size: 17px;
+}
+
+
+/* ================================
+   PRIVACY
+================================ */
+
+.privacy {
+    margin-top: 18px;
+
+    padding: 19px;
+
+    border: 1px solid var(--border);
+    border-radius: 16px;
+
+    background: rgba(15, 23, 42, 0.55);
+}
+
+
+.privacy strong {
+    font-size: 13px;
+}
+
+
+.privacy p {
+    margin-top: 7px;
+
+    color: var(--muted);
+
+    font-size: 12px;
+
+    line-height: 1.6;
+}
+
+
+/* ================================
+   FOOTER
+================================ */
+
+footer {
+    text-align: center;
+
+    margin-top: 25px;
+
+    color: #475569;
+
+    font-size: 12px;
+}
+
+
+/* ================================
+   MOBILE
+================================ */
+
+@media (max-width: 650px) {
+
+    .container {
+        width: 94%;
+
+        padding-top: 40px;
+    }
+
+
+    .hero h1 {
+        font-size: 32px;
+    }
+
+
+    .hero p {
+        font-size: 14px;
+    }
+
+
+    .card {
+        padding: 20px;
+
+        border-radius: 19px;
+    }
+
+
+    .password-wrapper {
+        flex-direction: column;
+    }
+
+
+    .toggle-btn {
+        min-height: 44px;
+    }
+
+
+    .score-header {
+        padding: 18px;
+    }
+
+
+    #score {
+        font-size: 32px;
+    }
+
+
+    .checks {
+        grid-template-columns: 1fr;
+    }
+
+}
